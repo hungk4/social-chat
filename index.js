@@ -1,6 +1,17 @@
 const express = require("express");
 const app = express();
-const path = require("path"); // Thư viện xử lý đường dẫn 
+const path = require("path"); // Thư viện xử lý đường dẫn ;
+const http = require('http');
+const { Server } = require("socket.io");
+
+// SocketIO
+const server = http.createServer(app);
+const io = new Server(server);
+
+io.on("connection", (socket) => {
+  console.log("Có 1 người dùng kết nối", socket.id);
+});
+// End SocketIO
 
 require('dotenv').config(); // Nạp biến môi trường từ .env
 
@@ -15,6 +26,9 @@ app.use(express.static(`${__dirname}/public`));
 const clientRoutes =  require("./routes/client/index.route");
 clientRoutes.index(app);
 
+
 // Khởi động server
 const port = process.env.PORT;
-app.listen(port);
+server.listen(port, () => {
+  console.log(`App listening on port ${port}`);
+});
