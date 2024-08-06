@@ -6,6 +6,16 @@ const http = require('http');
 const { Server } = require("socket.io");
 
 
+// Flash
+const flash = require('express-flash');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+
+app.use(cookieParser('HHKALKS'));
+app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(flash())
+// End Flash
+
 // Kết nối database
 const database = require("./config/database");
 database.connect();
@@ -20,6 +30,10 @@ global._io = io;
 // Cấu hình Pug làm engine template
 app.set('view engine', 'pug');
 app.set('views', `${__dirname}/views`);
+
+// Middleware để phân tích dữ liệu từ body của request
+app.use(express.urlencoded({ extended: true })); // Để phân tích dữ liệu form-urlencoded
+app.use(express.json()); // Để phân tích dữ liệu JSON
 
 // Middleware để phục vụ các file tĩnh từ thư mục 'public'
 app.use(express.static(`${__dirname}/public`));
