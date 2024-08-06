@@ -1,19 +1,21 @@
 const express = require("express");
 const app = express();
+require('dotenv').config(); // Nạp biến môi trường từ .env
 const path = require("path"); // Thư viện xử lý đường dẫn ;
 const http = require('http');
 const { Server } = require("socket.io");
 
+
+// Kết nối database
+const database = require("./config/database");
+database.connect();
+// End kết nối database
+
 // SocketIO
 const server = http.createServer(app);
 const io = new Server(server);
-
-io.on("connection", (socket) => {
-  console.log("Có 1 người dùng kết nối", socket.id);
-});
+global._io = io;
 // End SocketIO
-
-require('dotenv').config(); // Nạp biến môi trường từ .env
 
 // Cấu hình Pug làm engine template
 app.set('view engine', 'pug');
