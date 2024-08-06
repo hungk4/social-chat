@@ -42,6 +42,12 @@ app.use(express.static(`${__dirname}/public`));
 const clientRoutes =  require("./routes/client/index.route");
 clientRoutes.index(app);
 
+// Trang 404
+app.get("*", (req, res) => {
+  res.render("client/pages/errors/404", {
+      pageTitle: "404 Not Found"
+  });
+});
 
 // Khởi động server
 const port = process.env.PORT;
