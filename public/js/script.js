@@ -26,6 +26,7 @@ if(formChat) {
         content: content
       });
       event.target.content.value = "";
+      socket.emit("CLIENT_SEND_TYPING", "hidden");
     }
   })
 }
@@ -51,7 +52,7 @@ socket.on("SERVER_RETURN_MESSAGE", (data) => {
   `;
 
   const body = document.querySelector(".chat .inner-body");
-  body.appendChild(div);
+  body.insertBefore(div, elementListTyping);
 
   body.scrollTop = body.scrollHeight;
 });
@@ -63,7 +64,6 @@ if(bodyChat) {
   bodyChat.scrollTop = bodyChat.scrollHeight;
 }
 // End Scroll Chat To Bottom
-
 
 
 // Show Icon Chat
@@ -89,3 +89,44 @@ if(buttonIcon) {
   });
 }
 // End Show Popup Icon
+
+// Typing
+const inputChat = document.querySelector(".chat .inner-form input[name='content']");
+var typingTimeOut;
+if(inputChat){
+  inputChat.addEventListener("keyup", () => {
+    socket.emit("CLIENT_SEND_TYPING", "show");
+
+    clearTimeout(typingTimeOut);
+
+    typingTimeOut = setTimeout(() => {
+      socket.emit("CLIENT_SEND_TYPING", "hidden");
+    }, 3000);
+  })
+}
+// End Typing
+
+// SERVER_RETURN_TYPING
+const elementListTyping = document.querySelector(".chat .inner-list-typing");
+socket.on("SERVER_RETURN_TYPING", (data) => {
+  if(data.type == "show") {
+    const existTyping = elementListTyping.querySelector(`[user-id="${data.userId}"]`);
+
+    if(!existTyping) {
+      const boxTyping = document.createElement("div");
+      boxTyping.classList.add("box-typing");
+      boxTyping.setAttribute("user-id", data.userId);
+      boxTyping.innerHTML = `
+        <div class="inner-name">${data.fullName}</div>
+        <div class="inner-dots"><span></span><span></span><span></span></div>
+      `;
+      elementListTyping.appendChild(boxTyping);
+    }
+  } else{
+    const boxTypingDelete = elementListTyping.querySelector(`[user-id="${data.userId}"]`);
+    if(boxTypingDelete){
+      elementListTyping.removeChild(boxTypingDelete);
+    }
+  }
+})
+// End SERVER_RETURN_TYPING

@@ -18,7 +18,8 @@ block main
                 if(chat.userId != user.id)
                   .inner-name #{chat.fullName}
                 .inner-content
-                  | #{chat.content}          
+                  | #{chat.content}  
+            div(class="inner-list-typing")        
           .inner-foot
             form(
               class="inner-form"
