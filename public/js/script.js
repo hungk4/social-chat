@@ -1,3 +1,5 @@
+import * as Popper from 'https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js';
+
 var socket = io();
 
 // show-alert
@@ -61,3 +63,27 @@ if(bodyChat) {
   bodyChat.scrollTop = bodyChat.scrollHeight;
 }
 // End Scroll Chat To Bottom
+
+// Show Icon Chat
+const emojiPicker = document.querySelector('emoji-picker');
+if(emojiPicker) {
+  const inputChat = document.querySelector(".chat .inner-form input[name='content']");
+
+  emojiPicker.addEventListener('emoji-click', (event) => {
+    const icon = event.detail.unicode;
+    inputChat.value = inputChat.value + icon;
+  });
+}
+// End Show Icon Chat
+
+// Show Popup Icon
+const buttonIcon = document.querySelector("[button-icon]");
+if(buttonIcon) {
+  const tooltip = document.querySelector('.tooltip');
+  Popper.createPopper(buttonIcon, tooltip);
+
+  buttonIcon.addEventListener("click", () => {
+    tooltip.classList.toggle('shown');
+  });
+}
+// End Show Popup Icon
