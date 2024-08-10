@@ -1,5 +1,7 @@
 const Chat = require("../../models/chat.model");
 const User = require('../../models/user.model');
+const streamUpload = require("../../helpers/streamUpload.helper");
+
 // [GET] /chat
 module.exports.index = async (req, res) => {
   const userId = res.locals.user.id;
@@ -13,7 +15,17 @@ module.exports.index = async (req, res) => {
       const chatData = {
         userId: userId,
         content: data.content
+      };
+
+      const linkImages = [];
+
+      for (const image of data.images) {
+        const result = await streamUpload(image);
+        linkImages.push(result.url);
       }
+
+      chatData.images = linkImages;
+      
       // Lưu data vào database
       const chat = new Chat(chatData);
       await chat.save();
@@ -22,7 +34,8 @@ module.exports.index = async (req, res) => {
       _io.emit("SERVER_RETURN_MESSAGE", {
         userId: userId,
         fullName: fullName,
-        content: data.content
+        content: data.content,
+        images: linkImages
       })
     })
     socket.on("CLIENT_SEND_TYPING", (type) => {
