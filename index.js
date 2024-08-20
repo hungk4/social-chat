@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const methodOverride = require('method-override');
 require('dotenv').config(); // Nạp biến môi trường từ .env
 const path = require("path"); // Thư viện xử lý đường dẫn ;
 const http = require('http');
@@ -31,9 +32,10 @@ global._io = io;
 app.set('view engine', 'pug');
 app.set('views', `${__dirname}/views`);
 
-// Middleware để phân tích dữ liệu từ body của request
-app.use(express.urlencoded({ extended: true })); // Để phân tích dữ liệu form-urlencoded
-app.use(express.json()); // Để phân tích dữ liệu JSON
+// Middleware 
+app.use(methodOverride('_method'));
+app.use(express.urlencoded({ extended: true })); 
+app.use(express.json()); 
 
 // Middleware để phục vụ các file tĩnh từ thư mục 'public'
 app.use(express.static(`${__dirname}/public`));

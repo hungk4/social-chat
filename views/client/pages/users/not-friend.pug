@@ -16,7 +16,7 @@ block main
           div(class="box-user")
             div(class="inner-avatar")
               img(
-                src="https://robohash.org/hicveldicta.png"
+                src=(user.avatar ? user.avatar : "https://robohash.org/hicveldicta.png")
                 alt=user.fullName
               )
             div(class="inner-info")
@@ -24,7 +24,7 @@ block main
               div(class="inner-buttons")
                 button(
                   class="btn btn-sm btn-primary mr-1"
-                  btn-add-friend
+                  btn-add-friend=user.id
                 ) Kết bạn
                 button(
                   btn-cancel-friend

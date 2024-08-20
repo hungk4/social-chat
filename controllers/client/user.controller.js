@@ -85,3 +85,23 @@ module.exports.logout = async (req, res) => {
   res.clearCookie("tokenUser");
   res.redirect("/user/login");
 };
+
+// [GET] /user/profile
+module.exports.profile = async (req, res) => {
+  res.render("client/pages/user/profile.pug", {
+    pageTitle: "Thông tin cá nhân"
+  })
+}
+
+// [PATCH] /user/profile/edit/:id
+module.exports.profileEdit = async (req, res) => {
+  const id = req.params.id;
+
+  await User.updateOne({
+    _id: id,
+    deleted: false
+  }, req.body);
+
+  req.flash("success", "Cập nhật thành công!");
+  res.redirect("back");
+}
