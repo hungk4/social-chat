@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
     default: false
   },
   acceptFriends: Array,
-  requestFriends: Array
+  requestFriends: Array,
+  friendList: Array,
 }, {
   timestamps: true
 });
