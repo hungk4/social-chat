@@ -8,7 +8,7 @@ block main
 
     .row
       .col-12
-        +box-head("Lời mời kết bạn")
+        +box-head("Lời mời đã nhận")
 
     .row
       each user in users
@@ -16,7 +16,7 @@ block main
           div(class="box-user")
             div(class="inner-avatar")
               img(
-                src="https://robohash.org/hicveldicta.png"
+                src=(user.avatar ? user.avatar : "https://robohash.org/hicveldicta.png")
                 alt=user.fullName
               )
             div(class="inner-info")

@@ -79,6 +79,39 @@ module.exports = (req, res) => {
     // Hết Chức năng hủy gửi yêu cầu
 
     // Chức năng từ chối kết bạn
+    socket.on("CLIENT_REFUSE_FRIEND", async (userIdB) => {
+      // Xóa id của B khỏi acceptFriends của A;
+      const existUserBInA = await User.find({
+        _id: userIdA,
+        acceptFriends: userIdB
+      });
+      if(existUserBInA){
+        await User.updateOne({
+          _id: userIdA
+        }, {
+          $pull: {
+            acceptFriends: userIdB
+          }
+        })
+      }
+
+      // Xóa id của A khỏi requestFriends của B
+      const existUserAInB = await User.find({
+        _id: userIdB,
+        requestFriends: userIdA
+      });
+      if(existUserAInB){
+        await User.updateOne({
+          _id: userIdB
+        }, {
+          $pull: {
+            requestFriends: userIdA
+          }
+        })
+      }
+
+    
+    })
     // Hết Chức năng từ chối kết bạn
 
     // Chức năng chấp nhận kết bạn
