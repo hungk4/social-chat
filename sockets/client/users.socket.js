@@ -99,11 +99,17 @@ module.exports = (req, res) => {
       const infoB = await User.findOne({
         _id: userIdB
       });
-
       socket.broadcast.emit("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", {
         length: infoB.acceptFriends.length,
         userId: userIdB
       });
+
+      // Trả về cho B id của A
+      socket.broadcast.emit("SERVER_RETURN_ID_CANCEL_FRIEND", {
+        userIdA: userIdA,
+        userIdB: userIdB
+      });
+      
     })
     // Hết Chức năng hủy gửi yêu cầu
 
