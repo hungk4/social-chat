@@ -76,12 +76,27 @@ module.exports.loginPost = async (req, res) => {
   const expiresIn = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // / Cookie expires in 30 days;
   res.cookie("tokenUser", exitstUser.tokenUser, {expires: expiresIn});
 
+  await User.updateOne({
+    email: req.body.email,
+    deleted: false
+  }, {
+    statusOnline: "online"
+  })
   req.flash("success", "Đăng nhập thành công!");
   res.redirect("/chat");
 }
 
 // [GET] /user/logout
 module.exports.logout = async (req, res) => {
+  try {
+    await User.updateOne({
+      _id: res.locals.user.id
+    }, {
+      statusOnline: "offline"
+    })
+  } catch(e){
+    console.log(e);
+  }
   res.clearCookie("tokenUser");
   res.redirect("/user/login");
 };
