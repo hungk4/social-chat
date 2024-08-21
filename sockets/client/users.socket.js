@@ -193,5 +193,49 @@ module.exports = (req, res) => {
 
     })
     // Hết Chức năng chấp nhận kết bạn
+
+    // Chức năng hủy kết bạn
+    socket.on("CLIENT_UN_FRIEND", async (userIdB) => {
+      // Xóa B ra khỏi friendList của A
+      const existUserBInA = await User.findOne({
+        _id: userIdA,
+        "friendsList.userId": userIdB
+      });
+
+      if(existUserBInA) {
+        await User.updateOne({
+          _id: userIdA
+        }, {
+          $pull: {
+            friendsList: {
+              userId: userIdB
+            }
+          }
+        });
+      }
+
+      // Xóa A ra khỏi friendList của B
+      const existUserAInB = await User.findOne({
+        _id: userIdB,
+        "friendsList.userId": userIdA
+      });
+
+      if(existUserAInB) {
+        await User.updateOne({
+          _id: userIdB
+        }, {
+          $pull: {
+            friendsList: {
+              userId: userIdA
+            }
+          }
+        });
+      }
+
+      // Xóa roomChat
+
+    })
+    // Hết Chức năng hủy kết bạn
+  
   });
 }

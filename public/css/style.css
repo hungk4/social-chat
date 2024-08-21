@@ -248,6 +248,10 @@ chat .inner-preview-images {
   display: none;
 }
 
+.box-user.refuse [btn-un-friend] {
+  display: none;
+}
+
 .box-user.refuse [btn-accept-friend] {
   display: none;
 }

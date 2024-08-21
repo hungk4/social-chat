@@ -25,3 +25,12 @@ block main
                 button(
                   class="btn btn-sm btn-primary mr-1"
                 ) Nhắn tin
+                button(
+                  class="btn btn-sm btn-secondary mr-1"
+                  btn-un-friend=user.id
+                ) Hủy kết bạn
+                button(
+                  class="btn btn-sm btn-secondary mr-1"
+                  btn-deleted-friend=user.id
+                  disabled
+                ) Đã hủy

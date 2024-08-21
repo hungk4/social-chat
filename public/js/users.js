@@ -63,6 +63,22 @@ if(listBtnAcceptFriend.length > 0) {
 }
 // Hết Chức năng chấp nhận kết bạn
 
+// Chức năng hủy kết bạn
+const listBtnUnFriend = document.querySelectorAll("[btn-un-friend]");
+if(listBtnUnFriend.length > 0){
+  listBtnUnFriend.forEach(button => {
+    button.addEventListener("click", () => {
+    // Việc 1: Thêm class "refuse" cho box-user
+    button.closest(".box-user").classList.add("refuse");
+
+    // Việc 2: Gửi lên server userIdB
+    const userIdB = button.getAttribute("btn-un-friend");
+    socket.emit("CLIENT_UN_FRIEND", userIdB);
+    })
+  })
+}
+// Hết Chức năng hủy kết bạn
+
 
 // SERVER_RETURN_LENGTH_ACCEPT_FRIEND
 socket.on("SERVER_RETURN_LENGTH_ACCEPT_FRIEND", (data) => {
