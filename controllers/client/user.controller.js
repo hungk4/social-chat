@@ -92,7 +92,7 @@ module.exports.loginPost = async (req, res) => {
   });
 
   req.flash("success", "Đăng nhập thành công!");
-  res.redirect("/chat");
+  res.redirect("/users/friends");
 }
 
 // [GET] /user/logout
