@@ -19,3 +19,5 @@ const roomChatSchema = new mongoose.Schema({
 });
 
 const RoomChat = mongoose.model("RoomChat", roomChatSchema, "rooms-chat");
+
+module.exports = RoomChat;
