@@ -127,13 +127,17 @@ module.exports.profile = async (req, res) => {
 
 // [PATCH] /user/profile/edit/:id
 module.exports.profileEdit = async (req, res) => {
-  const id = req.params.id;
+  try{
+    const id = req.params.id;
 
-  await User.updateOne({
-    _id: id,
-    deleted: false
-  }, req.body);
-
-  req.flash("success", "Cập nhật thành công!");
-  res.redirect("back");
+    await User.updateOne({
+      _id: id,
+      deleted: false
+    }, req.body);
+  
+    req.flash("success", "Cập nhật thành công!");
+    res.redirect("back");
+  } catch(e){
+    res.redirect("back");
+  }
 }
