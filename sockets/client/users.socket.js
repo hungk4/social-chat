@@ -157,7 +157,7 @@ module.exports = (req, res) => {
 
     // Chức năng chấp nhận kết bạn
     socket.on("CLIENT_ACCEPT_FRIEND", async (userIdB) => {
-      try{
+      try{ 
         // Tạo phòng chat chung
         const roomChat = new RoomChat({
           typeRoom: "friend",
