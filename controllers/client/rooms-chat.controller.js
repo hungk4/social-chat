@@ -15,10 +15,10 @@ module.exports.index = async (req, res) => {
         if(user.userId !== userId){
           const  infoB = await User.findOne({
             _id: user.userId
-          }).select("fullName");
-          console.log(infoB);
+          }).select("fullName avatar");
           if(infoB){
             room.title = infoB.fullName;
+            room.avatar = infoB.avatar;
           };
         }
       }
@@ -51,29 +51,37 @@ module.exports.create = async (req, res) => {
 
 // [POST] /rooms-chat/create
 module.exports.createPost = async (req, res) => {
-  const title = req.body.title;
-  const usersId = req.body.usersId;
-
-  const dataRoomChat = {
-    title: title,
-    typeRoom: "group",
-    users: []
-  };
-
-  dataRoomChat.users.push({
-    userId: res.locals.user.id,
-    role: "superAdmin"
-  });
-
-  usersId.forEach(userId => {
+  try{
+    const title = req.body.title;
+    const usersId = req.body.usersId;
+    const avatar = req.body.avatar;
+  
+    const dataRoomChat = {
+      title: title,
+      avatar: avatar,
+      typeRoom: "group",
+      users: []
+    };
+  
     dataRoomChat.users.push({
-      userId: userId,
-      role: "user"
+      userId: res.locals.user.id,
+      role: "superAdmin"
     });
-  })
-
-  const roomChat = new RoomChat(dataRoomChat);
-  await roomChat.save();
-
-  res.redirect(`/chat/${roomChat.id}`);
+  
+    usersId.forEach(userId => {
+      dataRoomChat.users.push({
+        userId: userId,
+        role: "user"
+      });
+    })
+  
+    const roomChat = new RoomChat(dataRoomChat);
+    await roomChat.save();
+  
+    res.redirect(`/chat/${roomChat.id}`);
+  } catch(e){
+    console.log(e);
+    req.flash("error", "Lỗi tạo phòng chat!")
+    res.redirect("back");
+  }
 };
