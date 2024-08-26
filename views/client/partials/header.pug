@@ -4,7 +4,7 @@ header.header
         if(user)
           a(href=`/user/profile`)
             div(class="avatar-container")
-              src=(user.avatar ? user.avatar : "https://robohash.org/hicveldicta.png")
+              img(src=(user.avatar ? user.avatar : "https://robohash.org/hicveldicta.png") alt="avatar" class="avatar-icon")
               span(class="user-name") #{user.fullName}
           a(href="/rooms-chat") Phòng chat        
           a(href="/user/logout") Đăng xuất
