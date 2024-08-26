@@ -7,7 +7,15 @@ block main
     include ../../partials/list-btn-users.pug
     .row
       .col-12
-        +box-head(`${roomChat.title}`)
+        .head-container
+          +box-head(`${roomChat.title}`)
+          a(
+            class="btn btn-light btn-sm"
+            type="button"
+            href=`/rooms-chat/edit/${roomChat.id}`
+            setting-button
+          )
+            i(class="fa-solid fa-bars")
 
     .row
       .col-12

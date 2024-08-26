@@ -1,0 +1,67 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+  .container.my-3
+    .row
+      .col-12
+        +box-head("Chỉnh sửa phòng chat")
+
+    .row
+      .col-12
+        form(
+          action=`/rooms-chat/edit/${roomChat.id}?_method=PATCH`
+          method="POST"
+          enctype="multipart/form-data"
+        )
+          if(roomChat.typeRoom === "group")
+            div(class="form-group")
+              label(for="title") Tiêu đề
+              input(
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+                value=roomChat.title
+                required
+              )
+          if(roomChat.typeRoom === "group")
+            div(
+              class="form-group"
+              upload-image
+            )
+              label(for="avatar") Avatar
+              input(
+                type="file"
+                class="form-control-file"
+                id="avatar"
+                name="avatar"
+                accept="image/*"
+                upload-image-input
+              )
+              img(
+                src=roomChat.avatar
+                class="image-preview"
+                upload-image-preview
+              )       
+          div(class="form-group")
+            label Thêm thành viên
+            each friend in friendsList
+              div(class="form-check")
+                input(
+                  class="form-check-input"
+                  type="checkbox"
+                  value=friend.userId
+                  id=`user-${friend.userId}`
+                  name="usersId"
+                )
+                label(
+                  class="form-check-label"
+                  for=`user-${friend.userId}`
+                ) #{friend.fullName}
+
+          div(class="form-group")
+            button(
+              type="submit"
+              class="btn btn-primary"
+            ) Cập nhật

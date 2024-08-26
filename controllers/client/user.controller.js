@@ -34,7 +34,7 @@ module.exports.registerPost = async (req, res) => {
 
   res.cookie("tokenUser", user.tokenUser);
   req.flash("success", "Đăng kí tài khoản thành công");
-  res.redirect("/chat");
+  res.redirect("/users/not-friend");
 }
 
 // [GET] /user/login

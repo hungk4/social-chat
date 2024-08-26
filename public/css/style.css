@@ -30,7 +30,7 @@
 
 .chat .inner-body {
   padding: 10px;
-  height: 450px;
+  height: 400px;
   overflow-y: scroll;
 }
 
@@ -311,8 +311,8 @@ chat .inner-preview-images {
 }
 
 .avatar-icon {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   margin-right: 10px;
   object-fit: cover; 
@@ -325,7 +325,7 @@ chat .inner-preview-images {
 
 a {
   display: block;
-  margin-bottom: 10px; 
+  margin-bottom: 5px; 
   text-decoration: none; 
   color: inherit; 
 }
@@ -371,3 +371,11 @@ a:hover {
   margin-bottom: 3px;
 }
 /* End box-room */
+
+/* head-container */
+.head-container {
+  display: flex;
+  justify-content: space-between;
+}
+/* End head-container */
+ 
