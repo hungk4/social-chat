@@ -9,10 +9,9 @@ const userMiddleware = require("../../middlewares/client/user.middleware");
 module.exports.index = (app) => {
   app.use(userMiddleware.infoUser);
 
-  // app.use("/", userMiddleware.requireAuth, homeRoute);
   app.use("/chat", chatRoute);
   app.use("/user", userRoute);
-  app.use("/", userMiddleware.requireAuth, homeRoute);
   app.use("/users", userMiddleware.requireAuth, usersRoute);
   app.use("/rooms-chat", userMiddleware.requireAuth, roomsChatRoute);
+  app.use("/", userMiddleware.requireAuth, homeRoute);
 }
