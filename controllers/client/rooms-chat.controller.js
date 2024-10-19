@@ -38,20 +38,27 @@ module.exports.index = async (req, res) => {
 
 // [GET] /rooms-chat/create
 module.exports.create = async (req, res) => {
-  const friendsList = res.locals.user.friendsList;
+  try{
+    const friendsList = res.locals.user.friendsList;
 
-  for(friend of friendsList) {
-    const infoFriend = await User.findOne({
-      _id: friend.userId
-    }).select("fullName");
-
-    friend.fullName = infoFriend.fullName;
+    for(friend of friendsList) {
+      const infoFriend = await User.findOne({
+        _id: friend.userId
+      }).select("fullName");
+      
+      if(infoFriend){
+        friend.fullName = infoFriend.fullName;
+      }
+    }
+  
+    res.render("client/pages/rooms-chat/create", {
+      pageTitle: "Tạo phòng",
+      friendsList: friendsList
+    });
+  } catch(e){
+    res.redirect("back");
   }
 
-  res.render("client/pages/rooms-chat/create", {
-    pageTitle: "Tạo phòng",
-    friendsList: friendsList
-  });
 };
 
 // [POST] /rooms-chat/create

@@ -21,7 +21,7 @@ block main
           div(class="box-room")
             div(class="inner-avatar")
               img(
-                src=room.avatar
+                src=(room.avatar ? room.avatar : "https://robohash.org/hicveldicta.png")
                 alt=room.title
               )
             div(class="inner-info")
