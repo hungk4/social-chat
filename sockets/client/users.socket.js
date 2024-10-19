@@ -266,6 +266,11 @@ module.exports = (req, res) => {
       }
 
       // Xóa roomChat
+      await RoomChat.deleteOne({
+        "users.userId": { $all: [userIdA, userIdB]},
+        typeRoom: "friend"
+      })
+
 
     })
     // Hết Chức năng hủy kết bạn
