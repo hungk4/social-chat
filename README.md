@@ -1,3 +1,33 @@
-This project use SocketIO to chat in realtime
+Real-Time Chat Project
 
-Link: https://social-chat-liart.vercel.app/
+This project consists of a chat application that allows users to communicate and interact in real time.
+
+Demo Account:
+
+Email: levana@gmail.com
+
+Password: 123
+
+📌 Project Overview
+
+The Real-Time Chat Project provides a platform where users can:
+
+Register, log in, and add friends.
+
+Send/receive text messages, images, and emojis instantly.
+
+Create group chat rooms for discussion.
+
+The system is built with Socket.IO to ensure fast and seamless communication.
+
+🛠️ Tech Stack
+
+Frontend: HTML, CSS, JavaScript
+
+Backend: Node.js, Socket.IO
+
+Database: MongoDB
+
+👨‍💻 Author
+
+Developed by Nguyen Manh Hung.
