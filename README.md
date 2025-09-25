@@ -20,14 +20,6 @@ Create group chat rooms for discussion.
 
 The system is built with Socket.IO to ensure fast and seamless communication.
 
-🛠️ Tech Stack
-
-Frontend: HTML, CSS, JavaScript
-
-Backend: Node.js, Socket.IO
-
-Database: MongoDB
-
 👨‍💻 Author
 
 Developed by Nguyen Manh Hung.
